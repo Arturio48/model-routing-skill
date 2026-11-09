@@ -1,0 +1,71 @@
+# Шаблон маршрутов. Заменить <provider> и <model-id> по итогам инвентаризации.
+# Для Hermes Agent: вставить в config.yaml под delegation.backends.model_map.options.
+# Для другого агента: превратить в routes.json с теми же полями.
+
+delegation:
+  backend: model_map
+  backends:
+    model_map:
+      default: workhorse
+      options:
+        # Основной агент. Выбор: лучший баланс агентских бенчмарков и цены при большом лимите.
+        - name: workhorse
+          description: "Основной агент: файлы, терминал, веб, скриншоты, длинные сессии. По умолчанию."
+          provider: <provider>
+          model: <model-id>
+
+        # Массовый дешёвый труд. Выбор: минимальная цена за задачу при приемлемом качестве.
+        - name: fast
+          description: "Дешёвый массовый труд: извлечение, парсинг, классификация, черновики, параллельные мелкие задачи."
+          provider: <provider>
+          model: <model-id>
+
+        # Патчи и рефакторинг. Выбор: максимум на SWE-bench Verified при низкой цене за тест.
+        - name: code
+          description: "Патчи и рефакторинг в репозитории, SWE-задачи, разбор диффов."
+          provider: <provider>
+          model: <model-id>
+
+        # Второй взгляд на код. Выбор: другая семья моделей, сильная в агентском коде.
+        - name: code2
+          description: "Второй взгляд на код и архитектуру: ревью чужого решения, спорные места."
+          provider: <provider>
+          model: <model-id>
+          reasoning_effort: high
+
+        # Тяжёлые агентские цепочки. Выбор: максимум на Terminal-Bench 4.0, не на 2.1.
+        - name: deep
+          description: "Тяжёлые многошаговые агентские цепочки в терминале, инфраструктурный код. Дорого."
+          provider: <provider>
+          model: <model-id>
+          reasoning_effort: max
+
+        # Длинный контекст и рассуждения. Выбор: HLE + long-context бенчмарки.
+        - name: long
+          description: "Длинный контекст и сложные рассуждения: финансы, научные тексты, много документов."
+          provider: <provider>
+          model: <model-id>
+
+        # Знания и документы. Выбор: GPQA/MMLU-Pro + MMMU Pro + OCR.
+        - name: knowledge
+          description: "Знания, мультиязычие, документы, OCR, видео. Может быть медленной."
+          provider: <provider>
+          model: <model-id>
+
+        # Тексты и документы с быстрым ответом. Выбор: доменные прогоны + скорость.
+        - name: docs
+          description: "Медицинские и юридические тексты, длинные документы, быстрый дешёвый разбор."
+          provider: <provider>
+          model: <model-id>
+
+        # Инфраструктура и безопасность. Выбор: SRE, CyberBench, LegalBench, миграции кода.
+        - name: infra
+          description: "SRE, безопасность, юридические агентские задачи, миграции кода, PDF и видео. Дорого."
+          provider: <provider>
+          model: <model-id>
+
+        # Второе мнение. Выбор: другая семья моделей, дешёвая.
+        - name: review
+          description: "Второе мнение по чужому выводу и проверка фактов другой моделью."
+          provider: <provider>
+          model: <model-id>
